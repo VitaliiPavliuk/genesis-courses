@@ -3,7 +3,7 @@ import { requestCourses } from 'services/api';
 import { Loader } from './Loader/Loader';
 
 export const App = () => {
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,7 +12,8 @@ export const App = () => {
       try {
         setIsLoading(true);
         const fetchedCourses = await requestCourses();
-        setCourses(fetchedCourses);
+        // setCourses(fetchedCourses);
+        console.log(fetchedCourses);
       } catch (error) {
         setError(error.message);
       } finally {
