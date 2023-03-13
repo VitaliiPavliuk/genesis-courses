@@ -26,7 +26,7 @@ export const requestCourses = async () => {
   };
 
   const { data } = await axios.get(
-    'http://api.wisey.app/api/v1/core/preview-courses',
+    'https://api.wisey.app/api/v1/core/preview-courses',
     config
   );
 
