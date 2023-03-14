@@ -1,14 +1,31 @@
 import PropTypes from 'prop-types';
+import {
+  CoursesList,
+  CoursesListItem,
+  CoursesListItemWrapper,
+} from './Courses.styled';
 
 export const Courses = ({ courses }) => {
   return (
-    <ul>
+    <CoursesList>
       {courses.map(course => (
-        <li key={course.id}>
-          <p>{course.description}</p>
-        </li>
+        <CoursesListItem key={course.id}>
+          <img
+            style={{
+              height: '240px',
+              objectFit: 'cover',
+              // width: 'auto',
+            }}
+            src={course.previewImageLink + '/cover.webp'}
+            alt=""
+          />
+          <CoursesListItemWrapper>
+            <h3>{course.title}</h3>
+            <p>{course.description}</p>
+          </CoursesListItemWrapper>
+        </CoursesListItem>
       ))}
-    </ul>
+    </CoursesList>
   );
 };
 

@@ -17,8 +17,8 @@ export const App = () => {
       try {
         setIsLoading(true);
         const fetchedCourses = await requestCourses();
-        setCourses(fetchedCourses.courses);
-        console.log(fetchedCourses.courses);
+        setCourses(fetchedCourses);
+        console.log(fetchedCourses);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -31,7 +31,22 @@ export const App = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        // height: '100vh',
+        // display: 'flex',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // fontSize: 40,
+        // color: '#010101',
+
+        width: '1140px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+      }}
+    >
       {isLoading && <Loader />}
       {error !== null && <p>Oops, some error occured... {error}</p>}
       <Courses courses={courses} />
