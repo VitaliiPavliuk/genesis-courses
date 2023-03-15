@@ -5,30 +5,31 @@ import {
   CoursesListItemWrapper,
 } from './Courses.styled';
 
-export const Courses = ({ courses }) => {
+export const Courses = ({ currentCourses }) => {
   return (
     <CoursesList>
-      {courses.map(course => (
-        <CoursesListItem key={course.id}>
-          <img
-            style={{
-              height: '240px',
-              objectFit: 'cover',
-              // width: 'auto',
-            }}
-            src={course.previewImageLink + '/cover.webp'}
-            alt=""
-          />
-          <CoursesListItemWrapper>
-            <h3>{course.title}</h3>
-            <p>{course.description}</p>
-          </CoursesListItemWrapper>
-        </CoursesListItem>
-      ))}
+      {currentCourses &&
+        currentCourses.map(course => (
+          <CoursesListItem key={course.id}>
+            <img
+              style={{
+                height: '240px',
+                objectFit: 'cover',
+                // width: 'auto',
+              }}
+              src={course.previewImageLink + '/cover.webp'}
+              alt=""
+            />
+            <CoursesListItemWrapper>
+              <h3>{course.title}</h3>
+              <p>{course.description}</p>
+            </CoursesListItemWrapper>
+          </CoursesListItem>
+        ))}
     </CoursesList>
   );
 };
 
 Courses.propTypes = {
-  courses: PropTypes.arrayOf(PropTypes.shape().isRequired).isRequired,
+  currentItems: PropTypes.arrayOf(PropTypes.shape().isRequired),
 };

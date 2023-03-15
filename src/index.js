@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from 'components/App';
+
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -8,3 +9,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+
+// ReactDOM.createRoot(document.getElementById('container')).render(
+//   <React.StrictMode>
+//     <PaginatedItems itemsPerPage={10} />
+//   </React.StrictMode>
+// );

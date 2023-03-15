@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { requestCourses } from 'services/api';
-import { Courses } from './Courses/Courses';
 import { Loader } from './Loader/Loader';
+import { PaginatedCourses } from './PaginatedCourses/PaginatedCourses';
 
 export const App = () => {
   const [courses, setCourses] = useState([]);
@@ -9,16 +9,11 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // if (courses === []) {
-    //   return;
-    // }
-
     const fetchCourses = async () => {
       try {
         setIsLoading(true);
         const fetchedCourses = await requestCourses();
         setCourses(fetchedCourses);
-        console.log(fetchedCourses);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -27,19 +22,11 @@ export const App = () => {
     };
 
     fetchCourses();
-    // eslint-disable-next-line
   }, []);
 
   return (
     <div
       style={{
-        // height: '100vh',
-        // display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // fontSize: 40,
-        // color: '#010101',
-
         width: '1140px',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -49,7 +36,7 @@ export const App = () => {
     >
       {isLoading && <Loader />}
       {error !== null && <p>Oops, some error occured... {error}</p>}
-      <Courses courses={courses} />
+      <PaginatedCourses courses={courses} coursesPerPage={10} />
     </div>
   );
 };
