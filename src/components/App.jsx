@@ -1,4 +1,6 @@
+import { CourseDetails } from 'pages/CourseDetails';
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { requestCourses } from 'services/api';
 import { Loader } from './Loader/Loader';
 import { PaginatedCourses } from './PaginatedCourses/PaginatedCourses';
@@ -14,6 +16,7 @@ export const App = () => {
         setIsLoading(true);
         const fetchedCourses = await requestCourses();
         setCourses(fetchedCourses);
+        console.log(fetchedCourses);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -36,7 +39,19 @@ export const App = () => {
     >
       {isLoading && <Loader />}
       {error !== null && <p>Oops, some error occured... {error}</p>}
-      <PaginatedCourses courses={courses} coursesPerPage={10} />
+
+      <Routes>
+        <Route
+          path="/genesis-courses"
+          element={<PaginatedCourses courses={courses} coursesPerPage={10} />}
+        ></Route>
+        <Route
+          path="/genesis-courses/courses/:courseId"
+          element={<CourseDetails />}
+        ></Route>
+      </Routes>
+
+      {/* <PaginatedCourses courses={courses} coursesPerPage={10} /> */}
     </div>
   );
 };
