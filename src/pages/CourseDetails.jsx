@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { requestCourseDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
+import { Video } from 'components/Video/Video';
 
 export const CourseDetails = () => {
   const [course, setCourse] = useState(null);
@@ -35,17 +36,36 @@ export const CourseDetails = () => {
       {error !== null && <p>Oops, some error occured... {error}</p>}
       {course && (
         <div>
-          <p>Course: {course.title}</p>
-          <img
-            style={{
-              height: '240px',
-              objectFit: 'cover',
-              // width: 'auto',
-            }}
-            src={course.lessons[0].previewImageLink + '/1.webp'}
-            alt=""
-          />
-          <video src={course.meta.courseVideoPreview.link}></video>
+          <h3>Course: {course.title}</h3>
+          <Video videoLink={course.meta.courseVideoPreview.link}></Video>
+          {/* <video
+            controls
+            autoPlay={true}
+            src={course.meta.courseVideoPreview.link}
+          ></video> */}
+          <ul>
+            {course.lessons.map((lesson, i) => {
+              return (
+                <li key={lesson.id}>
+                  <h5>{lesson.title}</h5>
+                  <img
+                    style={{
+                      height: '240px',
+                      objectFit: 'cover',
+                      // width: 'auto',
+                    }}
+                    src={
+                      course.lessons[i].previewImageLink +
+                      '/lesson-' +
+                      lesson.order +
+                      '.webp'
+                    }
+                    alt=""
+                  />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </div>
