@@ -79,8 +79,8 @@ export const CourseDetails = () => {
                     </h5>
                   ) : lesson.status === 'locked' ? (
                     <h5>
-                      Lesson {lesson.order}. {lesson.title} - {lesson.type} -
-                      LOCKED
+                      Lesson {lesson.order}. {lesson.title} - {lesson.type}
+                      <span style={{ color: 'red' }}> - LOCKED</span>
                     </h5>
                   ) : (
                     <h5

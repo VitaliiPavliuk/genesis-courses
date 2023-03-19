@@ -27,13 +27,13 @@ export const Courses = ({ currentCourses }) => {
                 <h5 style={{ minHeight: '72px' }}>{course.description}</h5>
                 <div>
                   {course.lessonsCount && (
-                    <span>Lessons: {course.lessonsCount}</span>
+                    <h6>Lessons: {course.lessonsCount}</h6>
                   )}
-                  <br />
-                  {course.rating && <span>Rating: {course.rating}</span>}
+
+                  {course.rating && <h6>Rating: {course.rating}</h6>}
                   {course.meta.skills && (
                     <ul>
-                      Skills:
+                      <h6>Skills:</h6>
                       {course.meta.skills.map(skill => (
                         <li key={skill}>{skill}</li>
                       ))}
