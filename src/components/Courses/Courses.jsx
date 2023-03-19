@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   CoursesList,
   CoursesListItem,
   CoursesListItemWrapper,
+  StyledLink,
 } from './Courses.styled';
 
 export const Courses = ({ currentCourses }) => {
@@ -12,12 +12,12 @@ export const Courses = ({ currentCourses }) => {
       {currentCourses &&
         currentCourses.map(course => (
           <CoursesListItem key={course.id}>
-            <Link to={`courses/${course.id}`}>
+            <StyledLink to={`courses/${course.id}`}>
               <img
                 style={{
                   height: '240px',
                   objectFit: 'cover',
-                  // width: 'auto',
+                  width: '100%',
                 }}
                 src={course.previewImageLink + '/cover.webp'}
                 alt=""
@@ -40,7 +40,7 @@ export const Courses = ({ currentCourses }) => {
                   )}
                 </div>
               </CoursesListItemWrapper>
-            </Link>
+            </StyledLink>
           </CoursesListItem>
         ))}
     </CoursesList>

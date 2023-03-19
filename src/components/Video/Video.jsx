@@ -1,7 +1,7 @@
 import Hls from 'hls.js';
 import { useEffect, useState } from 'react';
 
-export const Video = ({ videoLink, id }) => {
+export const Video = ({ videoLink, id, title, poster }) => {
   const [lessonsVideoStartPosition, setLessonsVideoStartPosition] = useState(
     JSON.parse(localStorage.getItem('lessonsVideoStartPosition')) ?? {}
   );
@@ -16,48 +16,40 @@ export const Video = ({ videoLink, id }) => {
   useEffect(() => {
     // if (!videoLink) return;
 
-    const video = document.getElementById(`video-${id}`);
-    video.currentTime = lessonsVideoStartPosition[id] ?? 0;
+    const video = document.getElementById(`video`);
+    // video.currentTime = lessonsVideoStartPosition[id] ?? 0;
 
     if (Hls.isSupported()) {
-      // console.log('hello hls.js!');
-
       const hls = new Hls();
-
-      // hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-      //   console.log('video and hls.js are now bound together !');
-      // });
-
-      // hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-      //   console.log(
-      //     'manifest loaded, found ' + data.levels.length + ' quality level'
-      //   );
-      // });
 
       hls.loadSource(videoLink);
       hls.attachMedia(video);
-
-      video.ontimeupdate = () => {
-        const lessonTimer = {
-          [id]: video.currentTime,
-        };
-
-        setLessonsVideoStartPosition(prev => ({
-          ...prev,
-          ...lessonTimer,
-        }));
-      };
     }
+
+    video.currentTime = lessonsVideoStartPosition[id] ?? 0;
+
+    video.ontimeupdate = () => {
+      const lessonTimer = {
+        [id]: video.currentTime,
+      };
+
+      setLessonsVideoStartPosition(prev => ({
+        ...prev,
+        ...lessonTimer,
+      }));
+    };
+    // eslint-disable-next-line
   }, [videoLink, id]);
 
   return (
     <video
-      // title="adasdasdasdafaf"
-      style={{ height: '240px' }}
-      id={`video-${id}`}
+      title={title}
+      style={{ width: '100%', marginBottom: '100px' }}
+      id={`video`}
       controls
-      //   onClick={this._onTouchInsidePlayer}
-      //   ref={player => (this.player = player)}
+      poster={poster}
+      preload="false"
+
       // autoPlay={true}
 
       // muted={true}

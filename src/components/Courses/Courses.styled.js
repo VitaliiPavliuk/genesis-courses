@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const CoursesList = styled.ul`
   display: grid;
@@ -16,6 +17,15 @@ export const CoursesListItem = styled.li`
   justify-self: center;
   flex-direction: column;
   width: 558px;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+
+  &:hover {
+    color: rgb(0, 0, 0);
+  }
 `;
 
 export const CoursesListItemWrapper = styled.div`
