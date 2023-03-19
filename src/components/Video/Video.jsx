@@ -1,5 +1,6 @@
-import Hls from 'hls.js';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import Hls from 'hls.js';
 
 export const Video = ({ videoLink, id, title, poster }) => {
   const [lessonsVideoStartPosition, setLessonsVideoStartPosition] = useState(
@@ -14,10 +15,7 @@ export const Video = ({ videoLink, id, title, poster }) => {
   }, [lessonsVideoStartPosition]);
 
   useEffect(() => {
-    // if (!videoLink) return;
-
     const video = document.getElementById(`video`);
-    // video.currentTime = lessonsVideoStartPosition[id] ?? 0;
 
     if (Hls.isSupported()) {
       const hls = new Hls();
@@ -44,15 +42,20 @@ export const Video = ({ videoLink, id, title, poster }) => {
   return (
     <video
       title={title}
-      style={{ width: '100%', marginBottom: '100px' }}
+      style={{ width: '100%', marginBottom: '50px' }}
       id={`video`}
       controls
       poster={poster}
       preload="false"
 
-      // autoPlay={true}
-
       // muted={true}
     />
   );
+};
+
+Video.propTypes = {
+  videoLink: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
 };

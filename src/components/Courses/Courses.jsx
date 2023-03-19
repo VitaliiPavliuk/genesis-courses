@@ -29,6 +29,7 @@ export const Courses = ({ currentCourses }) => {
                   {course.lessonsCount && (
                     <span>Lessons: {course.lessonsCount}</span>
                   )}
+                  <br />
                   {course.rating && <span>Rating: {course.rating}</span>}
                   {course.meta.skills && (
                     <ul>
@@ -48,5 +49,5 @@ export const Courses = ({ currentCourses }) => {
 };
 
 Courses.propTypes = {
-  currentItems: PropTypes.arrayOf(PropTypes.shape().isRequired),
+  currentCourses: PropTypes.arrayOf(PropTypes.shape().isRequired),
 };

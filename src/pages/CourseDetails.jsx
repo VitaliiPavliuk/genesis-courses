@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { requestCourseDetails } from 'services/api';
 import { Loader } from 'components/Loader/Loader';
 import { Video } from 'components/Video/Video';
+import { CourseHeader } from './CourseDetails.styled';
 
 export const CourseDetails = () => {
   const [course, setCourse] = useState(null);
@@ -38,11 +39,17 @@ export const CourseDetails = () => {
 
   return (
     <div>
+      <Link
+        style={{ textDecoration: 'none', color: 'rgb(0, 0, 0)' }}
+        to={'/genesis-courses'}
+      >
+        Back to all Courses
+      </Link>
       {isLoading && <Loader />}
       {error !== null && <p>Oops, some error occured... {error}</p>}
       {course && (
         <div>
-          <h3
+          <CourseHeader
             onClick={() => {
               setCurrentVideoId(course.id);
               setCurrentVideoLink(course.meta.courseVideoPreview.link);
@@ -51,8 +58,8 @@ export const CourseDetails = () => {
             }}
           >
             Course: {course.title}
-          </h3>
-          <h4>{currentVideoTitle}</h4>
+          </CourseHeader>
+          {course.title !== currentVideoTitle && <h4>{currentVideoTitle}</h4>}
           <Video
             videoLink={currentVideoLink}
             id={currentVideoId}
@@ -94,27 +101,6 @@ export const CourseDetails = () => {
                       Lesson {lesson.order}. {lesson.title} - {lesson.type}
                     </h5>
                   )}
-
-                  {/* <img
-                    style={{
-                      height: '240px',
-                      objectFit: 'cover',
-                      // width: 'auto',
-                    }}
-                    src={
-                      lesson.previewImageLink +
-                      '/lesson-' +
-                      lesson.order +
-                      '.webp'
-                    }
-                    alt=""
-                  /> */}
-
-                  {/* {currentVideoId === lesson.id &&
-                    lesson.status === 'unlocked' &&
-                    lesson.type === 'video' && (
-                      <Video videoLink={lesson.link} id={lesson.id} />
-                    )} */}
                 </li>
               );
             })}

@@ -1,6 +1,7 @@
 import { Courses } from 'components/Courses/Courses';
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import PropTypes from 'prop-types';
 
 export const AllCourses = ({ courses, coursesPerPage }) => {
   const [currentCourses, setCurrentCourses] = useState(null);
@@ -11,16 +12,12 @@ export const AllCourses = ({ courses, coursesPerPage }) => {
     if (courses.length === 0) return;
 
     const endOffset = itemOffset + coursesPerPage;
-    // console.log(`Loading courses from ${itemOffset} to ${endOffset}`);
     setCurrentCourses(courses.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(courses.length / coursesPerPage));
   }, [itemOffset, coursesPerPage, courses]);
 
   const handlePageClick = event => {
     const newOffset = (event.selected * coursesPerPage) % courses.length;
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
-    // );
     setItemOffset(newOffset);
   };
 
@@ -53,4 +50,9 @@ export const AllCourses = ({ courses, coursesPerPage }) => {
       </div>
     </>
   );
+};
+
+AllCourses.propTypes = {
+  courses: PropTypes.arrayOf(PropTypes.shape().isRequired).isRequired,
+  coursesPerPage: PropTypes.number.isRequired,
 };
