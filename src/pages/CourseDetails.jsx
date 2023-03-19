@@ -6,6 +6,7 @@ import { Video } from 'components/Video/Video';
 
 export const CourseDetails = () => {
   const [course, setCourse] = useState(null);
+  const [currentVideoId, setCurrentVideoId] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { courseId } = useParams();
@@ -30,6 +31,10 @@ export const CourseDetails = () => {
     fetchCourseDetails(courseId);
   }, [courseId]);
 
+  // const handleLessonClick = ({ id }) => {
+  //   setCurrentVideoId(true);
+  // };
+
   return (
     <div>
       {isLoading && <Loader />}
@@ -37,16 +42,19 @@ export const CourseDetails = () => {
       {course && (
         <div>
           <h3>Course: {course.title}</h3>
-          <Video videoLink={course.meta.courseVideoPreview.link}></Video>
-          {/* <video
-            controls
-            autoPlay={true}
-            src={course.meta.courseVideoPreview.link}
-          ></video> */}
+          <Video
+            videoLink={course.meta.courseVideoPreview.link}
+            id={course.id}
+          />
           <ul>
-            {course.lessons.map((lesson, i) => {
+            {course.lessons.map(lesson => {
               return (
-                <li key={lesson.id}>
+                <li
+                  key={lesson.id}
+                  onClick={() => {
+                    setCurrentVideoId(lesson.id);
+                  }}
+                >
                   <h5>{lesson.title}</h5>
                   <img
                     style={{
@@ -55,13 +63,19 @@ export const CourseDetails = () => {
                       // width: 'auto',
                     }}
                     src={
-                      course.lessons[i].previewImageLink +
+                      lesson.previewImageLink +
                       '/lesson-' +
                       lesson.order +
                       '.webp'
                     }
                     alt=""
                   />
+
+                  {currentVideoId === lesson.id &&
+                    lesson.status === 'unlocked' &&
+                    lesson.type === 'video' && (
+                      <Video videoLink={lesson.link} id={lesson.id} />
+                    )}
                 </li>
               );
             })}
@@ -71,6 +85,3 @@ export const CourseDetails = () => {
     </div>
   );
 };
-
-// https://wisey.app/assets/images/web/course-covers/lack-of-motivation-how-to-overcome-it/cover.webp
-// https://wisey.app/assets/images/web/course-covers/lack-of-motivation-how-to-overcome-it/preview/cover.webp
